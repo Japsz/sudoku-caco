@@ -26,7 +26,7 @@ interface UseSudokuReturn {
 const initialState: SudokuState = {
     notesMode: false,
     loading: true,
-    difficulty: 20,
+    difficulty: 3,
 }    
 const useSudoku = () => {
     const [state, dispatch] = useReducer<SudokuReducer>((state, action: SudokuAction) => {

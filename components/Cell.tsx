@@ -10,10 +10,13 @@ interface CellProps extends CellType {
   isSelected: boolean,
   // current cell has the same value if the user selected cell
   sameValue: boolean,
+  // if the cell is Conflicted
+  isConflicted: boolean,
+
 };
 const Cell = (props: CellProps) => {
   const {
-    value, onClick, isPeer, isSelected, sameValue, prefilled, notes,
+    value, onClick, isPeer, isSelected, sameValue, prefilled, notes, isConflicted
   } = props;
   let style = styles.boardCell;
   if(isPeer) {
@@ -34,9 +37,7 @@ const Cell = (props: CellProps) => {
       ...styles.boardCellSelected
     }
   }
-  let conflicted = false;
-  if(isPeer && sameValue && !isSelected && value) {
-    conflicted = true;
+  if(isConflicted) {
     style = {
       ...style,
       ...styles.boardCellConflicted
@@ -48,7 +49,7 @@ const Cell = (props: CellProps) => {
   }
   return (
     <View style={style} onTouchStart={onCellClick}>
-      <Connector isDirty={conflicted} />
+      <Connector isDirty={isConflicted} />
       <Text adjustsFontSizeToFit>{value || ""}</Text>
     </View>
   );
